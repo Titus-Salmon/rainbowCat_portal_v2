@@ -69,7 +69,7 @@ router.post('/results', (req, res, next) => { //take POST request data from dbEd
       srcRsObj['P_K'] = rows[i]['prim_key']
       srcRsObj['Vendor'] = rows[i]['vendorName']
       srcRsObj['EDI'] = rows[i]['ediName']
-      srcRsObj['IssDt'] = rows[i]['issueDate']
+      srcRsObj['dateUpdated'] = rows[i]['dateUpdated']
       srcRsObj['NdNw'] = rows[i]['needNewCat']
       srcRsObj['Updtd'] = rows[i]['updatedWLatest']
       srcRsObj['last_rtl_updt'] = rows[i]['last_rtl_updt']
@@ -147,7 +147,7 @@ router.post('/results', (req, res, next) => { //take POST request data from dbEd
       formInput5 !== undefined && formInput6 !== undefined && formInput7 !== undefined && formInput8 !== undefined && formInput9 !== undefined &&
       formInput10 !== undefined) {
       connection.query(`SELECT * FROM rainbowcat_v2 WHERE vendorName LIKE '${formInput1}%' AND ediName LIKE '${formInput2}%'
-       AND issueDate LIKE '${formInput3}%' AND needNewCat LIKE '${formInput4}%' AND updatedWLatest LIKE '${formInput5}%' 
+       AND dateUpdated LIKE '${formInput3}%' AND needNewCat LIKE '${formInput4}%' AND updatedWLatest LIKE '${formInput5}%' 
        AND comments1 LIKE '${formInput6}%' AND comments2 LIKE '${formInput7}%' AND comments3 LIKE '${formInput8}%' 
        AND andrea LIKE '${formInput9}%' AND nathan LIKE '${formInput10}%' ORDER BY vendorName ASC;`,
         function (err, rows, fields) {
@@ -182,7 +182,7 @@ router.post('/saveCSV', (req, res, next) => {
     Parser
   } = require('json2csv')
 
-  const fields = ['P_K', 'Vendor', 'EDI', 'IssDt', 'NdNw', 'Updtd', 'Cmnts1', 'Cmnts2', 'Cmnts3', 'Andr', 'Nathan',
+  const fields = ['P_K', 'Vendor', 'EDI', 'dateUpdated', 'NdNw', 'Updtd', 'Cmnts1', 'Cmnts2', 'Cmnts3', 'Andr', 'Nathan',
     'vndemail', 'wellMarg', 'ongDisco'
   ]
   const opts = {
