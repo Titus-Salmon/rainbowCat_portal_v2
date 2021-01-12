@@ -24,7 +24,7 @@ function highlight_row() {
     // console.log('cells[i].parentNode.childNodes==>', cells[i].parentNode.childNodes)
     // console.log('cells[i].parentNode.childNodes[0].innerHTML==>', cells[i].parentNode.childNodes[0].innerHTML)
     let ediname = cells[i].parentNode.childNodes[2];
-    let issdate = cells[i].parentNode.childNodes[3];
+    let dateUpdated = cells[i].parentNode.childNodes[3];
     let need = cells[i].parentNode.childNodes[4];
     let updated = cells[i].parentNode.childNodes[5];
     let comments1 = cells[i].parentNode.childNodes[6];
@@ -34,21 +34,21 @@ function highlight_row() {
     let andcmnts = cells[i].parentNode.childNodes[9]; //placeholder for andrea comment highlights
     let nathancmnts = cells[i].parentNode.childNodes[10]; //placeholder for andrea comment highlights
     let vndeml = cells[i].parentNode.childNodes[11]; //vendor email column cells
-    // console.log('issdate.innerHTML==>', issdate.innerHTML)
-    let cellDate = new Date(issdate.innerHTML);
+    // console.log('dateUpdated.innerHTML==>', dateUpdated.innerHTML)
+    let cellDate = new Date(dateUpdated.innerHTML);
 
     console.log(`ediname|cellDate|dateDiff|comments2|need==> ${ediname.innerHTML}|${cellDate}|${Date.dateDiff('w', cellDate, currentDate)}|${comments2.innerHTML}|${need.innerHTML}`)
 
-    // console.log(`issdate.innerHTML==> ${typeof issdate.innerHTML}`)
+    // console.log(`dateUpdated.innerHTML==> ${typeof dateUpdated.innerHTML}`)
 
     if (ediname.innerHTML.toLowerCase().includes('no edi id')) {
       ediname.style.backgroundColor = "yellow";
     }
     if (Date.dateDiff('w', cellDate, currentDate) > 24) { //if issue date of cat is more than 6 months old
-      issdate.style.backgroundColor = "orange"
+      dateUpdated.style.backgroundColor = "orange"
     }
     if ((Date.dateDiff('w', cellDate, currentDate) <= 24) || //determines whether entry is shown as in need of updating
-      // (issdate.innerHTML !== 'number') ||
+      // (dateUpdated.innerHTML !== 'number') ||
       (comments2.innerHTML.toLowerCase().includes('ignore auto-email')) ||
       (comments2.innerHTML.toLowerCase().includes('not in edi')) ||
       (comments2.innerHTML.toLowerCase().includes('get vendor email')) ||
@@ -62,9 +62,9 @@ function highlight_row() {
     // if (vndeml.style.display != "none") {
     //   receiverEmailAddrArray.push(vndeml.innerHTML)
     // }
-    if (issdate.innerHTML.toLowerCase().includes('not in titus')) {
-      issdate.style.backgroundColor = "yellow";
-    }
+    // if (dateUpdated.innerHTML.toLowerCase().includes('not in titus')) {
+    //   dateUpdated.style.backgroundColor = "yellow";
+    // }
     if (need.innerHTML.toLowerCase() == 'yes' || need.innerHTML == '?') {
       need.style.backgroundColor = "yellow";
     }
