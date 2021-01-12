@@ -1,0 +1,121 @@
+doctype html
+html
+	head
+		link(rel="stylesheet" type="text/css" href="/stylesheets/style.css")
+
+	body
+		include partials/header.pug
+		include partials/subHeader.pug
+		div.input-field-1
+			h3(style="margin-top: 0")= title
+
+			form#autoEmail(action='/autoEmailPassport/results' method='POST' accept-charset="UTF-8")
+				thead
+					tr
+						td
+							input#prKy.input-unit-1(type='text', placeholder='enter data', name='prKyPost', value='', style="display: none")
+						td
+							label.input-label-1(for='vndNm' style="display: none") Vendor Name
+							input#vndNm.input-unit-1(type='text', placeholder='enter data', name='vndNmPost', value='' style="display: none")
+						td
+							label.input-label-1(for='ediNm' style="display: none") EDI Name
+							input#ediNm.input-unit-1(type='text', placeholder='enter data', name='ediNmPost', value='' style="display: none")
+						td
+							label.input-label-1(for='issuDt' style="display: none") Issue Date
+							input#issuDt.input-unit-1(type='date', placeholder='enter data', name='issuDtPost', value='' style="display: none")
+						td
+							label.input-label-1(for='ndNwCt' style="display: none") Need New Catalog?
+							input#ndNwCt.input-unit-1(type='text', placeholder='enter data', name='ndNwCtPost', value='' style="display: none")
+						td
+							label.input-label-1(for='updtwLtst' style="display: none") Updated w/ Latest?
+							input#updtwLtst.input-unit-1(type='text', placeholder='enter data', name='updtwLtstPost', value='' style="display: none")
+						td
+							label.input-label-1(for='cmnt1' style="display: none") Comments1
+							input#cmnt1.input-unit-1(type='text', placeholder='enter data', name='cmnt1Post', value='' style="display: none")
+						td
+							label.input-label-1(for='cmnt2' style="display: none") Comments2
+							input#cmnt2.input-unit-1(type='text', placeholder='enter data', name='cmnt2Post', value='' style="display: none")
+						td
+							label.input-label-1(for='cmnt3' style="display: none") Comments3
+							input#cmnt3.input-unit-1(type='text', placeholder='enter data', name='cmnt3Post', value='' style="display: none")
+						td
+							label.input-label-1(for='andr' style="display: none") Andrea
+							input#andr.input-unit-1(type='text', placeholder='enter data', name='andrPost', value='' style="display: none")
+
+			button#searchDB(type='submit', form='autoEmail', style="display: block; float: left") Show Catalogs That Need To Be Updated
+			br
+			br
+			button.adminButton#saveCSV(type="submit" form="saveCSVPost") Save Results as CSV
+			form#saveCSVPost(action='/autoEmailPassport/saveCSV' method='POST' accept-charset='UTF-8')
+				label.input-label-1(for='csv') filename:
+					input#csv.input-unit-1(type='text', placeholder='enter filename here', name='csvPost', value='')
+
+		div.rslt-tbl-1
+			form#sendEmail(action='/autoEmailPassport/formPost' method='POST' accept-charset="UTF-8")
+				thead
+					tr
+						//- td
+						//- 	input#prKy(type='text', name='prKyPost', style="display: none")
+						td
+							label.input-label-1(for='autoEmailVndNm') Vendor Name
+							input.autoEmailAdminForm#autoEmailVndNm.input-unit-1(type='text', placeholder='enter data', name='vndNmPost', required='')
+						td
+							label.input-label-1(for='autoEmailVndEmail') Vendor Email
+							input.autoEmailAdminForm#autoEmailVndEmail.input-unit-1(type='text', placeholder='enter data', name='vndEmailPost', required='', value='')
+						td
+							label.input-label-1(for='senderEmail') Sender Email
+							input.autoEmailAdminForm#senderEmail.input-unit-1(type='text', placeholder='enter data', name='senderEmailPost', required='', value='andrea.mcgrath@rainbowblossom.com')
+						td
+							label.input-label-1(for='senderEmailPW') Sender Email Password
+							input.autoEmailAdminForm#senderEmailPW.input-unit-1(type='password', placeholder='enter data', name='senderEmailPWPost', required='', value='')
+
+
+			button.autoEmailAdminButton(type='submit', form='sendEmail', style="display: block; float: left") Send Auto Email(s)
+
+		div.rslt-tbl-1
+			table#resTbl
+				button.adminButton#editDB(style="display: inline-block") Edit Selection
+				button.adminButton#deleteSelection(style="display: inline-block") Delete Selection
+				thead
+					tr
+						th(onclick="sortTable(0)" style="display:none") Primary Key
+						th(onclick="sortTable(1)") Vendor_Name
+						th(onclick="sortTable(2)") EDI_Name
+						th(onclick="sortTable(3)") Issue_Date
+						th(onclick="sortTable(4)" style="display:none") Need New Catalog?
+						th(onclick="sortTable(5)" style="display:none") Updated w/ Latest?
+						th(onclick="sortTable(6)" style="min-width:15rem") ___Comments1___
+						th(onclick="sortTable(7)" style="min-width:15rem") ___Comments2___
+						th(onclick="sortTable(8)" style="min-width:15rem") ___Comments3___
+						th(onclick="sortTable(9)" style="min-width:15rem") Andrea_Comments
+						th(onclick="sortTable(10)" style="min-width:15rem") Nathan_Comments
+						th(onclick="sortTable(11)") Vendor Email (for auto-emails)
+						th(onclick="sortTable(12)") Ongoing Disco
+
+
+
+				tbody#resTblBdy
+					if searchResRows !== undefined
+						each elmnt in searchResRows
+							tr
+								td(style="display:none")= elmnt.P_K
+								td= elmnt.Vendor
+								td= elmnt.EDI
+								td= elmnt.IssDt
+								td(style="display:none")= elmnt.NdNw
+								td(style="display:none")= elmnt.Updtd
+								td= elmnt.Cmnts1
+								td= elmnt.Cmnts2
+								td= elmnt.Cmnts3
+								td= elmnt.Andr
+								td= elmnt.Nathan
+								td= elmnt.vndemail
+								td= elmnt.ongDisco
+
+
+		//- script(src='/javascripts/autoEmailPassport.js')
+		script(src='/javascripts/modules/sortTableM0d.js')
+		script(src='/javascripts/modules/needNewCatTblM0d.js')
+		script(src='/javascripts/modules/dateCalcM0d.js')
+		script(src='/javascripts/modules/editDBM0d.js')
+		script(src='/javascripts/modules/adminM0d.js')

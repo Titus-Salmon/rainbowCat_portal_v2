@@ -1,0 +1,141 @@
+doctype html
+html
+	head
+		link(rel="stylesheet" type="text/css" href="/stylesheets/style.css")
+
+	body
+		include partials/header.pug
+		include partials/subHeader.pug
+
+		div.input-field-1
+			h3(style="margin-top: 0")= title
+
+			p= TITUS_ADMIN_EMAIL
+
+			form#dbEditPassport(action='/dbEditPassport/results' method='POST' accept-charset="UTF-8")
+				thead
+					tr
+						td
+							input#prKy.input-unit-1(type='text', placeholder='enter data', name='prKyPost', value='', style="display: none")
+						td
+							label.input-label-1(for='vndNm') Vendor Name
+							input#vndNm.input-unit-1(type='text', placeholder='enter data', name='vndNmPost', value='')
+						td
+							label.input-label-1(for='ediNm') EDI Name
+							input#ediNm.input-unit-1(type='text', placeholder='enter data', name='ediNmPost', value='')
+						td
+							label.input-label-1(for='issuDt') Issue Date
+							input#issuDt.input-unit-1(type='date', placeholder='enter data', name='issuDtPost', value='')
+						td
+							label.input-label-1(for='ndNwCt') Need New Catalog?
+							input#ndNwCt.input-unit-1(type='text', placeholder='enter data', name='ndNwCtPost', value='')
+						td
+							label.input-label-1(for='updtwLtst') Updated w/ Latest?
+							input#updtwLtst.input-unit-1(type='text', placeholder='enter data', name='updtwLtstPost', value='')
+						td
+							label.input-label-1(for='cmnt1') Comments1
+							input#cmnt1.input-unit-1(type='text', placeholder='enter data', name='cmnt1Post', value='')
+						td
+							label.input-label-1(for='cmnt2') Comments2
+							input#cmnt2.input-unit-1(type='text', placeholder='enter data', name='cmnt2Post', value='')
+						td
+							label.input-label-1(for='cmnt3') Comments3
+							input#cmnt3.input-unit-1(type='text', placeholder='enter data', name='cmnt3Post', value='')
+						td
+							label.input-label-1(for='andr') Andrea
+							input#andr.input-unit-1(type='text', placeholder='enter data', name='andrPost', value='')
+						td
+							label.input-label-1(for='nathan') Nathan
+							input#nathan.input-unit-1(type='text', placeholder='enter data', name='nathanPost', value='')
+
+			button#searchDB(type='submit', form='dbEditPassport', style="display: block; float: left") Search DB
+			br
+			br
+			button.adminButton#saveCSV(type="submit" form="saveCSVPost") Save Results as CSV
+			form#saveCSVPost(action='/dbEditPassport/saveCSV' method='POST' accept-charset='UTF-8')
+				label.input-label-1(for='csv') filename:
+					input#csv.input-unit-1(type='text', placeholder='enter filename here', name='csvPost', value='')
+			button.adminButton#saveCSV(type="submit" form="saveXlsxPost") Save Results as XLSX
+			form#saveXlsxPost(action='/dbEditPassport/save2xlsx' method='POST' accept-charset='UTF-8')
+				label.input-label-1(for='xlsx') filename:
+					input#xlsx.input-unit-1(type='text', placeholder='enter filename here', name='xlsxPost', value='')
+
+		div.rslt-tbl-1
+			table#resTbl
+				button#editDB(style="display: inline-block") Edit Selection
+				button.adminButton#deleteSelection(style="display: inline-block") Delete Selection
+				thead
+					tr
+						th(onclick="sortTable(0)" style="display:none") Primary Key
+						th(onclick="sortTable(1)") #
+						th(onclick="sortTable(2)") Vendor_Name
+						th(onclick="sortTable(3)") EDI_Name
+						th(onclick="sortTable(4)") Issue_Date
+						th(onclick="sortTable(5)" style="display:none") Need New Catalog?
+						th(onclick="sortTable(6)" style="display:none") Updated w/ Latest?
+						th(onclick="sortTable(7)") last_rtl_updt
+						th(onclick="sortTable(8)" style="min-width:15rem") ___Comments1___
+						th(onclick="sortTable(9)" style="min-width:15rem") ___Comments2___
+						th(onclick="sortTable(10)" style="min-width:15rem") ___Comments3___
+						th(onclick="sortTable(11)" style="min-width:15rem") Andrea_Comments
+						th(onclick="sortTable(12)" style="min-width:15rem") Nathan_Comments
+						th(onclick="sortTable(13)") Vendor Email (for auto-emails)
+						th(onclick="sortTable(14)") Wellness Margins
+						th(onclick="sortTable(15)") Ongoing Disco
+						th(onclick="sortTable(16)") EA-#n divide?
+						th(onclick="sortTable(17)") CS-#n divide?
+						th(onclick="sortTable(18)" style="min-width:15rem") special1
+						th(onclick="sortTable(19)" style="min-width:15rem") disco_appld_to
+						th(onclick="sortTable(20)" style="min-width:15rem") sales_method
+						th(onclick="sortTable(21)") min_order
+						th(onclick="sortTable(22)") edlp
+						th(onclick="sortTable(23)" style="min-width:15rem") order_qty
+						th(onclick="sortTable(24)") RtlRvw
+						th(onclick="sortTable(25)") wsImw
+						th(onclick="sortTable(26)") rtlImw
+						th(onclick="sortTable(27)") tot updtd (rtl)
+
+
+
+				tbody#resTblBdy
+					if searchResRows !== undefined
+						each elmnt in searchResRows
+							tr
+								td(style="display:none")= elmnt.P_K
+								td= elmnt.lineNumber
+								td= elmnt.Vendor
+								td= elmnt.EDI
+								td= elmnt.IssDt
+								td(style="display:none")= elmnt.NdNw
+								td(style="display:none")= elmnt.Updtd
+								td= elmnt.last_rtl_updt
+								td= elmnt.Cmnts1
+								td= elmnt.Cmnts2
+								td= elmnt.Cmnts3
+								td= elmnt.Andr
+								td= elmnt.Nathan
+								td= elmnt.vndemail
+								td= elmnt.wellMarg
+								td= elmnt.ongDisco
+								td= elmnt.EA_Num_divide
+								td= elmnt.CS_Num_divide
+								td= elmnt.special1
+								td= elmnt.disco_appld_to
+								td= elmnt.sales_method
+								td= elmnt.min_order
+								td= elmnt.edlp
+								td= elmnt.order_qty
+								td= elmnt.rtlRvw
+								td= elmnt.wsImw
+								td= elmnt.rtlImw
+								td= elmnt.tot_updtd_rtl
+
+
+		//- script(src='/javascripts/dbEditPassport.js')
+		script(src='/javascripts/modules/sortTableM0d.js')
+		script(src='/javascripts/modules/tblHiliteM0d.js')
+		script(src='/javascripts/modules/dateCalcM0d.js')
+		script(src='/javascripts/modules/editDBM0d.js')
+		script(src='/javascripts/modules/saveCSVM0d.js')
+		script(src='/javascripts/modules/deleteSelectionM0d.js')
+		script(src='/javascripts/modules/adminM0d.js')

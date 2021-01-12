@@ -1,0 +1,11 @@
+node_modules
+.env
+ARCHIVE
+package-lock.json
+package.json
+catRT - Shortcut.lnk
+.vscode
+gitIgnoreStuff
+csv
+csvToInsert
+images
