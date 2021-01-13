@@ -21,17 +21,17 @@ function highlight_row() {
         console.log('cells[i].parentNode.childNodes==>', cells[i].parentNode.childNodes)
         console.log('cells[i].parentNode.childNodes[0].innerHTML==>', cells[i].parentNode.childNodes[0].innerHTML)
         // let ediname = cells[i].parentNode.childNodes[2];
-        // let issdate = cells[i].parentNode.childNodes[3];
+        // let dateUpdated = cells[i].parentNode.childNodes[3];
         // let need = cells[i].parentNode.childNodes[4];
         // let updated = cells[i].parentNode.childNodes[5];
         // let reporter = cells[i].parentNode.childNodes[6];
         // let cmnts = cells[i].parentNode.childNodes[7];
         // let userCmnts = cells[i].parentNode.childNodes[8];
-        // console.log('issdate.innerHTML==>', issdate.innerHTML)
-        // let cellDate = new Date(issdate.innerHTML);
+        // console.log('dateUpdated.innerHTML==>', dateUpdated.innerHTML)
+        // let cellDate = new Date(dateUpdated.innerHTML);
 
         let ediname = cells[i].parentNode.childNodes[3];
-        let issdate = cells[i].parentNode.childNodes[4];
+        let dateUpdated = cells[i].parentNode.childNodes[4];
         let need = cells[i].parentNode.childNodes[5];
         let updated = cells[i].parentNode.childNodes[6];
         let comments1 = cells[i].parentNode.childNodes[7];
@@ -41,8 +41,8 @@ function highlight_row() {
         let andcmnts = cells[i].parentNode.childNodes[10]; //placeholder for andrea comment highlights
         let nathancmnts = cells[i].parentNode.childNodes[11]; //placeholder for andrea comment highlights
         let vndeml = cells[i].parentNode.childNodes[12]; //vendor email column cells
-        // console.log('issdate.innerHTML==>', issdate.innerHTML)
-        let cellDate = new Date(issdate.innerHTML);
+        // console.log('dateUpdated.innerHTML==>', dateUpdated.innerHTML)
+        let cellDate = new Date(dateUpdated.innerHTML);
 
         console.log(`ediname|cellDate|dateDiff==> ${ediname.innerHTML}|${cellDate}|${Date.dateDiff('w', cellDate, currentDate)}`)
 
@@ -51,10 +51,10 @@ function highlight_row() {
             ediname.style.backgroundColor = "yellow";
         }
         if (Date.dateDiff('w', cellDate, currentDate) > 24) { //if issue date of cat is more than 6 months old
-            issdate.style.backgroundColor = "orange"
+            dateUpdated.style.backgroundColor = "orange"
         }
-        if (issdate.innerHTML.toLowerCase().includes('not in titus')) {
-            issdate.style.backgroundColor = "yellow";
+        if (dateUpdated.innerHTML.toLowerCase().includes('not in titus')) {
+            dateUpdated.style.backgroundColor = "yellow";
         }
         if (need.innerHTML.toLowerCase() == 'yes' || need.innerHTML == '?') {
             need.style.backgroundColor = "yellow";

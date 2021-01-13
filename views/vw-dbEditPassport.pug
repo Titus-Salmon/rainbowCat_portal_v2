@@ -70,7 +70,7 @@ html
 						th(onclick="sortTable(1)") #
 						th(onclick="sortTable(2)") Vendor_Name
 						th(onclick="sortTable(3)") EDI_Name
-						th(onclick="sortTable(4)") Issue_Date
+						th(onclick="sortTable(4)") Updated
 						th(onclick="sortTable(5)" style="display:none") Need New Catalog?
 						th(onclick="sortTable(6)" style="display:none") Updated w/ Latest?
 						th(onclick="sortTable(7)") last_rtl_updt
@@ -105,7 +105,7 @@ html
 								td= elmnt.lineNumber
 								td= elmnt.Vendor
 								td= elmnt.EDI
-								td= elmnt.IssDt
+								td= elmnt.dateUpdated
 								td(style="display:none")= elmnt.NdNw
 								td(style="display:none")= elmnt.Updtd
 								td= elmnt.last_rtl_updt
